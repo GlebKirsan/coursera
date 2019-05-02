@@ -1,0 +1,6 @@
+.idea
+.vscode
+__pyc*
+*.txt
+*.zip
+cmake*
