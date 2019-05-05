@@ -110,6 +110,7 @@ class Hero(Creature):
             self.level += 1
             self.stats["strength"] += 2
             self.stats["endurance"] += 2
+            self.stats["intelligence"] += 2
             self.calc_max_HP()
             self.hp = self.max_hp
 
@@ -189,10 +190,10 @@ class Berserk(Effect):
 
 class Blessing(Effect):
     def apply_effect(self):
-        self.stats["strength"] += 2
+        self.stats["strength"] += 1
         self.stats["endurance"] += 2
         self.stats["intelligence"] += 2
-        self.stats["luck"] += 2
+        self.stats["luck"] += 1
         super().apply_effect()
 
 
@@ -213,7 +214,7 @@ class Sunset(Effect):
 
     @position.setter
     def position(self, value):
-        self.exp += int(self.max_exp * 0.01)
+        self.gold += 1
         self.base.position = value
 
     def apply_effect(self):
