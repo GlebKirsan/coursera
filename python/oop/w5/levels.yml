@@ -1,11 +1,15 @@
 levels:
   - !empty_map {}
   - !special_map
+    rat: 10
+    snake: 5
+  - !special_map
     rat: 5
+    snake: 7
+    knight: 3
+    naga: 2
   - !special_map
-    rat: 10
-    knight: 5
-  - !special_map
-    rat: 10
-    knight: 10
+    knight: 3
+    naga: 3
+    dragon: 1
   - !random_map {}
