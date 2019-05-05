@@ -80,4 +80,4 @@ class SunsetAction(AbstractAction):
     @classmethod
     def cast(cls, engine, hero):
         engine.hero = Objects.Sunset(hero)
-        engine.notify({"info": "1% gold per move"})
+        engine.notify({"info": "1 gold per move"})
