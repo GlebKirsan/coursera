@@ -1,5 +1,4 @@
 #include "test_runner.h"
-
 #include <vector>
 using namespace std;
 
@@ -12,16 +11,17 @@ public:
   };
 
   ~LinkedList() {
-      while (head){
-          RemoveAfter(head);
+      while (head) {
+        PopFront();
       }
   }
 
   void PushFront(const T& value){
       head = new Node{value, head};
   }
+
   void InsertAfter(Node* node, const T& value){
-      if (node == nullptr){
+      if (!node){
         PushFront(value);
       } else {
         Node* tmp = node->next;
@@ -29,18 +29,16 @@ public:
       }
   }
   void RemoveAfter(Node* node){
-      if (node == nullptr) {
-          return;
-      } else if (node->next == nullptr){
-          node = nullptr;
-      } else {
+      if (!node) {
+          PopFront();
+      } else if (node->next) {
           Node* tmp = node->next;
           node->next = tmp->next;
           delete tmp;
       }
   }
   void PopFront(){
-      if (head == nullptr){
+      if (!head){
           return;
       }
       Node* tmp = head;
