@@ -13,7 +13,7 @@ using namespace std;
 template <typename TAirport>
 class AirportCounter {
 public:
-  // конструктор по умолчанию: список элементов пока пуст
+ // конструктор по умолчанию: список элементов пока пуст
   AirportCounter();
 
   // конструктор от диапазона элементов типа TAirport
