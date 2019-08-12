@@ -1,0 +1,1 @@
+add_executable(a_plus_b a_plus_b.cpp)

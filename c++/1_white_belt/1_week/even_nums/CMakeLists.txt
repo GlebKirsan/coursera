@@ -1,0 +1,1 @@
+add_executable(even_nums even_nums.cpp)

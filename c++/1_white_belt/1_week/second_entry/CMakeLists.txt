@@ -1,0 +1,1 @@
+add_executable(second_entry second_entry.cpp)

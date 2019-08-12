@@ -1,0 +1,12 @@
+project(1_week)
+
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${WEEK_PREFIX}/${PROJECT_NAME}")
+add_subdirectory(a_plus_b)
+add_subdirectory(bin_numbers)
+add_subdirectory(calculation_of_price)
+add_subdirectory(division)
+add_subdirectory(equation)
+add_subdirectory(even_nums)
+add_subdirectory(gcd)
+add_subdirectory(minimal_string)
+add_subdirectory(second_entry)

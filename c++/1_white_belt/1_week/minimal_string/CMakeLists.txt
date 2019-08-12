@@ -1,0 +1,1 @@
+add_executable(minimal_string minimal_string.cpp)

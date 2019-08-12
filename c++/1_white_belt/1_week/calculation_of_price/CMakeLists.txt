@@ -1,0 +1,1 @@
+add_executable(calculation_of_price calculation_of_price.cpp)
