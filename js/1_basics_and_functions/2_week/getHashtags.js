@@ -1,15 +1,16 @@
-function getHashtags(tweet, index) {
-    return tweet.startsWith('#');
-}
-
-function render(tweet, index){
-    return tweet.slice(1);
-}
-
 /**
  * @param {String} tweet
  * @returns {String[]}
  */
-module.exports = function (tweet) {
-    return tweet.split(' ').filter(getHashtags).map(render);
+module.exports = function(tweet) {
+    return tweet.split(' ').filter(getHashtags)
+        .map(removeSymbol);
 };
+
+function getHashtags(word, index) {
+    return word.startsWith('#');
+}
+
+function removeSymbol(word, index) {
+    return word.slice(1);
+}

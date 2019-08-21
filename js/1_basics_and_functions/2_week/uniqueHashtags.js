@@ -1,15 +1,16 @@
-function render(hashtag, index){
-    return hashtag.toLowerCase();
-}
-
-function removeDuplicates(hashtag, index, hashtags){
-    return hashtags.indexOf(hashtag) === index;
-}
-
 /**
  * @param {String[]} hashtags
  * @returns {String}
  */
-module.exports = function (hashtags) {
-    return hashtags.map(render).filter(removeDuplicates, hashtags).join(', ');
+module.exports = function(hashtags) {
+    return hashtags.map(toLowerCaseCallback)
+        .filter(findUnique).join(', ');
 };
+
+function toLowerCaseCallback(hashtag, index) {
+    return hashtag.toLowerCase();
+}
+
+function findUnique(word, index, self) {
+    return self.indexOf(word) == index;
+}
