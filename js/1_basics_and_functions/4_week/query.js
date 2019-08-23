@@ -68,7 +68,7 @@ function removeLast(arr, index) {
     return arr;
 }
 
-function makeUnique(item, index, self){
+function makeUnique(item, index, self) {
     return self.indexOf(item) === index;
 }
 
@@ -95,12 +95,14 @@ function leaveIntersection(toSelect) {
 
 function intersectFiltration(toFilter) {
     var count = {};
+    var prop = 0;
+    var valuesOfProperty = 1;
 
     for (var i = 0; i < toFilter.length; ++i) {
-        if (!count.hasOwnProperty(toFilter[i][0])) {
-            count[toFilter[i][0]] = [];
+        if (!count.hasOwnProperty(toFilter[i][prop])) {
+            count[toFilter[i][prop]] = [];
         }
-        count[toFilter[i][0]].push(toFilter[i][1]);
+        count[toFilter[i][prop]].push(toFilter[i][valuesOfProperty]);
     }
     for (var property in count) {
         count[property] = leaveIntersection(count[property]);
