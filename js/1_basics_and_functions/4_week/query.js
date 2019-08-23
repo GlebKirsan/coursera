@@ -8,7 +8,7 @@ function query(collection) {
     if (arguments.length === 1) {
         return collectionCopy;
     }
-    var arrArguments = [].slice.call(arguments).slice(1);
+    var arrArguments = [].slice.call(arguments, 1);
 
     var toSelect = arrArguments.filter(selectionFilter);
     toSelect = toSelect.map(removeLast);
