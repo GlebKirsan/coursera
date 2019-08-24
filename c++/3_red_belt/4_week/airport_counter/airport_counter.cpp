@@ -85,17 +85,17 @@ void TestMoscow() {
   };
   AirportCounter<MoscowAirport> airport_counter(begin(airports), end(airports));
 
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 1);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::SVO), 2);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::DME), 0);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::ZIA), 1);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 1ul);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::SVO), 2ul);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::DME), 0ul);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::ZIA), 1ul);
 
   using Item = AirportCounter<MoscowAirport>::Item;
   vector<Item> items;
   for (const auto& item : airport_counter.GetItems()) {
     items.push_back(item);
   }
-  ASSERT_EQUAL(items.size(), 4);
+  ASSERT_EQUAL(items.size(), 4ul);
 
 #define ASSERT_EQUAL_ITEM(idx, expected_enum, expected_count) \
   do { \
@@ -103,19 +103,19 @@ void TestMoscow() {
     ASSERT_EQUAL(items[idx].second, expected_count); \
   } while (false)
 
-  ASSERT_EQUAL_ITEM(0, VKO, 1);
-  ASSERT_EQUAL_ITEM(1, SVO, 2);
-  ASSERT_EQUAL_ITEM(2, DME, 0);
-  ASSERT_EQUAL_ITEM(3, ZIA, 1);
+  ASSERT_EQUAL_ITEM(0, VKO, 1ul);
+  ASSERT_EQUAL_ITEM(1, SVO, 2ul);
+  ASSERT_EQUAL_ITEM(2, DME, 0ul);
+  ASSERT_EQUAL_ITEM(3, ZIA, 1ul);
 
   airport_counter.Insert(MoscowAirport::VKO);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 2);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 2ul);
 
   airport_counter.EraseOne(MoscowAirport::SVO);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::SVO), 1);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::SVO), 1ul);
 
   airport_counter.EraseAll(MoscowAirport::VKO);
-  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 0);
+  ASSERT_EQUAL(airport_counter.Get(MoscowAirport::VKO), 0ul);
 }
 
 enum class SmallCountryAirports {

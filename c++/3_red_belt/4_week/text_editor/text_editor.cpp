@@ -1,11 +1,15 @@
 #include <string>
+#include <list>
+#include <algorithm>
+#include <iterator>
 #include "test_runner.h"
 using namespace std;
 
 class Editor {
- public:
+public:
   // Реализуйте конструктор по умолчанию и объявленные методы
   Editor();
+  
   void Left();
   void Right();
   void Insert(char token);
@@ -13,7 +17,60 @@ class Editor {
   void Copy(size_t tokens = 1);
   void Paste();
   string GetText() const;
+
+private:
+  using Iterator = list<char>::iterator;
+  Iterator Advance(Iterator it, int steps) const {
+    while (steps > 0 and it != end(text)){
+      ++it;
+      --steps;
+    }
+    while (steps < 0 and it != begin(text)){
+      --it;
+      ++steps;
+    }
+    return it;
+  }
+
+  list<char> buffer;
+  list<char> text;
+
+  Iterator cursor_position;
 };
+
+Editor::Editor():
+  cursor_position{end(text)} {}
+
+void Editor::Insert(char token){
+  text.insert(cursor_position, token);
+}
+
+void Editor::Left(){
+  cursor_position = Advance(cursor_position, -1);
+}
+
+void Editor::Right(){
+  cursor_position = Advance(cursor_position, 1);
+}
+
+void Editor::Paste(){
+  text.insert(cursor_position, begin(buffer), end(buffer));
+}
+
+void Editor::Copy(size_t tokens){
+  auto end_position = Advance(cursor_position, static_cast<int>(tokens));
+  buffer.assign(cursor_position, end_position);
+}
+
+void Editor::Cut(size_t tokens){
+  auto end_position = Advance(cursor_position, static_cast<int>(tokens));
+  buffer.assign(cursor_position, end_position);
+  cursor_position = text.erase(cursor_position, end_position);
+}
+
+string Editor::GetText() const {
+  return {begin(text), end(text)};
+}
 
 void TypeText(Editor& editor, const string& text) {
   for(char c : text) {
