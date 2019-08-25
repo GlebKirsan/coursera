@@ -1,0 +1,1 @@
+add_executable(priority_collection_2 priority_collection_2.cpp)

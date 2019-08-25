@@ -1,0 +1,1 @@
+add_executable(simple_vector_2 simple_vector_2.cpp)

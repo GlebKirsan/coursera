@@ -1,1 +1,7 @@
 add_subdirectory(josephus_permutation)
+add_subdirectory(group_strings)
+add_subdirectory(simple_vector)
+add_subdirectory(split_into_sentences)
+add_subdirectory(simple_vector_2)
+add_subdirectory(merge_sort_3)
+# add_subdirectory(priority_collection_2)

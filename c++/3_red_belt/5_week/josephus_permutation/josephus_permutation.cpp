@@ -5,21 +5,37 @@
 #include <numeric>
 #include <vector>
 #include <utility>
+#include <algorithm>
+#include <list>
 
 using namespace std;
 
 template <typename RandomIt>
 void MakeJosephusPermutation(RandomIt first, RandomIt last, uint32_t step_size) {
-  vector<typename RandomIt::value_type> pool(first, last);
-  size_t cur_pos = 0;
-  while (!pool.empty()) {
-    *(first++) = pool[cur_pos];
-    pool.erase(pool.begin() + cur_pos);
-    if (pool.empty()) {
+  list<typename RandomIt::value_type> pool;
+  move(first, last, back_inserter(pool));
+  
+  size_t length = pool.size();
+  auto cur_pos = begin(pool);
+  size_t cur_pos_idx = 0;
+  --step_size;
+  while(true){
+    pool.push_back(move(*cur_pos));
+    cur_pos = pool.erase(cur_pos);
+    length -= 1;
+    if (length == 0)
       break;
+    
+    if (cur_pos_idx + step_size >= length){
+      cur_pos = begin(pool);
+      cur_pos_idx = (cur_pos_idx + step_size) % length;
+      cur_pos = next(cur_pos, cur_pos_idx);
+    } else {
+      cur_pos = next(cur_pos, step_size);
+      cur_pos_idx += step_size;
     }
-    cur_pos = (cur_pos + step_size - 1) % pool.size();
   }
+  move(begin(pool), end(pool), first);
 }
 
 vector<int> MakeTestVector() {
