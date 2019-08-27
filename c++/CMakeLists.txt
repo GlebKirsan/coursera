@@ -11,7 +11,7 @@ endif()
 
 message("Platform is ${PLATFORM}")
 
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Werror -Wpedantic -Wextra")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}") # -Wall -Werror -Wpedantic -Wextra
 if(NOT CMAKE_BUILD_TYPE)
 	set(CMAKE_BUILD_TYPE "release")
 endif()
