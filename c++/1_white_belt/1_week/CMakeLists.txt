@@ -1,6 +1,5 @@
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${WEEK_PREFIX}/${1_week}")
 add_subdirectory(a_plus_b)
-add_subdirectory(bin_numbers)
 add_subdirectory(calculation_of_price)
 add_subdirectory(division)
 add_subdirectory(equation)
