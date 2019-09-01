@@ -16,56 +16,40 @@ public:
     static_assert(is_integral_v<K>, "ConcurrentMap supports only integer keys");
 
     struct Access {
-        V &ref_to_value;
-        lock_guard<mutex> guard;
+        lock_guard<mutex> access_guard;
+        V& ref_to_value;
     };
 
-    struct VectorAccess {
-        map<K, V> &ref_to_value;
-        lock_guard<mutex> guard;
+    struct Bucket {
+        map<K, V> data;
+        mutex bucket_mutex;
     };
 
     explicit ConcurrentMap(size_t bucket_count) :
-            container(bucket_count),
-            parts(bucket_count * value_per_page, 0) {
-        int page = 1;
-        for (int i = value_per_page; i < parts.size();) {
-            parts[i] = page;
-            if (++i % value_per_page == 0) {
-                page++;
-            }
-        }
-    }
+            buckets(bucket_count) {}
 
-    Access operator[](const K &key) {
-        VectorAccess to_vector{container[parts[key]], lock_guard(vector_access)};
-        return {to_vector.ref_to_value[key],
-                lock_guard(value_access)};
+    Access operator[](const K& key) {
+        size_t needed_bucket = key % buckets.size();
+        return {lock_guard{buckets[needed_bucket].bucket_mutex},
+                buckets[needed_bucket].data[key]};
     }
 
     map<K, V> BuildOrdinaryMap() {
-        map<K, V> ordinary_map;
-        for (auto &m : container) {
-            VectorAccess va{m, lock_guard(vector_access)};
-            for (auto&[key, value] : m) {
-                Access lul{value, lock_guard(value_access)};
-                ordinary_map[key] = lul.ref_to_value;
-            }
+        map<K, V> collection;
+        for (auto& [bucket, bucket_mutex] : buckets) {
+            lock_guard g{bucket_mutex};
+            collection.insert(begin(bucket), end(bucket));
         }
-        return ordinary_map;
+
+        return collection;
     }
 
 private:
-    mutex value_access;
-    mutex vector_access;
-    static const int value_per_page = 10000;
-
-    vector<int> parts;
-    vector<map<K, V>> container;
+    vector<Bucket> buckets;
 };
 
 void RunConcurrentUpdates(
-        ConcurrentMap<int, int> &cm, size_t thread_count, int key_count
+        ConcurrentMap<int, int>& cm, size_t thread_count, int key_count
 ) {
     auto kernel = [&cm, key_count](int seed) {
         vector<int> updates(key_count);
@@ -125,7 +109,7 @@ void TestReadAndWrite() {
 
     for (auto f : {&r1, &r2}) {
         auto result = f->get();
-        ASSERT(all_of(result.begin(), result.end(), [](const string &s) {
+        ASSERT(all_of(result.begin(), result.end(), [](const string& s) {
             return s.empty() || s == "a" || s == "aa";
         }));
     }
@@ -152,3 +136,4 @@ int main() {
     RUN_TEST(tr, TestReadAndWrite);
     RUN_TEST(tr, TestSpeedup);
 }
+>>>>>>> d5e8b1fb2cd2fa0ed0c1d98ee4357d44efb8085d
