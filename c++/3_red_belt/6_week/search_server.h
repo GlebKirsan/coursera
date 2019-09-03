@@ -2,55 +2,60 @@
 
 #include <istream>
 #include <ostream>
-#include <set>
-#include <list>
+#include <queue>
 #include <vector>
 #include <map>
 #include <string>
+#include <mutex>
 
 using namespace std;
 
-class Statistic {
-    struct Stat {
-        size_t id;
-        map<string_view, size_t> word_occurrences;
-    };
-
+class InvertedIndex {
 public:
+    void Add(string document);
 
-    Statistic() {
-        documents.reserve(MAX_DOCUMENTS);
+    const vector<pair<size_t, size_t>> &Lookup(const string_view &word) const;
+
+    size_t GetDocumentSize() const {
+        return docs.size();
     }
-
-    const Stat& GetDocument(size_t id) const {
-        return documents[id];
-    }
-
-    const vector<Stat>& GetDocuments() const {
-        return documents;
-    }
-
-    void Add(vector<pair<size_t, string>>&& lines);
 
 private:
-    static const size_t MAX_DOCUMENTS = 50'000;
+    vector<pair<size_t, size_t>> empty_vector;
+    map<string_view, vector<pair<size_t, size_t>>> index;
+    queue<string> docs;
+};
 
-    vector<Stat> documents;
-    map<string, string_view> word_to_view;
+template<typename T>
+class Synchronized {
+public:
+    explicit Synchronized(T initial = T()):
+            value(move(initial)){}
+
+    struct Access {
+        T &ref_to_value;
+        lock_guard<mutex> guard;
+    };
+
+    Access GetAccess() {
+        return {value, lock_guard(m)};
+    }
+
+private:
+    T value;
+    mutex m;
 };
 
 class SearchServer {
 public:
     SearchServer() = default;
 
-    explicit SearchServer(istream& document_input);
+    explicit SearchServer(istream &document_input);
 
-    void UpdateDocumentBase(istream& document_input);
+    void UpdateDocumentBase(istream &document_input);
 
-    void ProcessSingleQuerie(const string& query_input, ostream& search_results_output);
-
-    void AddQueriesStream(istream& query_input, ostream& search_results_output);
+    void AddQueriesStream(istream &query_input, ostream &search_results_output);
 
 private:
-    Statistic statistic;
+    Synchronized<InvertedIndex> sync;
 };
