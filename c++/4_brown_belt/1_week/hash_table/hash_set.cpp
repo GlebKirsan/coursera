@@ -2,6 +2,8 @@
 
 #include <forward_list>
 #include <iterator>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
@@ -22,8 +24,51 @@ public:
 
     void Erase(const Type &value);
 
-    const BucketList &GetBucket(const Type &value) const;
+    const BucketList &GetBucket(const Type &value) const {
+        size_t hashed_value = hasher(value) % hash_set.size();
+        const BucketList & bucket = hash_set[hashed_value];
+        return bucket;
+    }
+
+private:
+    BucketList &GetBucketNotConst(const Type &value) {
+        size_t hashed_value = hasher(value) % hash_set.size();
+        BucketList& bucket = hash_set[hashed_value];
+        return bucket;
+    }
+
+    vector<BucketList> hash_set;
+    Hasher hasher;
 };
+
+template<typename Type, typename Hasher>
+HashSet<Type, Hasher>::HashSet(size_t num_buckets, const Hasher &hasher)
+        : hash_set(num_buckets),
+          hasher(hasher) {}
+
+template<typename Type, typename Hasher>
+void HashSet<Type, Hasher>::Add(const Type &value) {
+    BucketList &bucket = GetBucketNotConst(value);
+    bool is_item_exists = find(begin(bucket), end(bucket), value) != end(bucket);
+    if (!is_item_exists) {
+        bucket.push_front(value);
+    }
+}
+
+template<typename Type, typename Hasher>
+bool HashSet<Type, Hasher>::Has(const Type &value) const {
+    const BucketList &bucket = GetBucket(value);
+    bool is_item_exists = find(begin(bucket), end(bucket), value) != end(bucket);
+    return is_item_exists;
+}
+
+template<typename Type, typename Hasher>
+void HashSet<Type, Hasher>::Erase(const Type &value) {
+    BucketList &bucket = GetBucketNotConst(value);
+    bucket.remove_if([&value](Type &element) {
+        return element == value;
+    });
+}
 
 struct IntHasher {
     size_t operator()(int value) const {
