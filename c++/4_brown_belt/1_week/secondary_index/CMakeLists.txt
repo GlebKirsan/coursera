@@ -1,0 +1,1 @@
+add_executable(secondary_index secondary_index.cpp)
