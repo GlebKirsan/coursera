@@ -44,8 +44,6 @@ def calc_age(uid):
     return sorted(tuples, key=lambda x: (x[1], -x[0]), reverse=True)
 
 
-
-
 if __name__ == '__main__':
     res = calc_age('reigning')
     print(res)
