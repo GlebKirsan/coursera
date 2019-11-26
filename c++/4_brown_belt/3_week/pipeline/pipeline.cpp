@@ -144,13 +144,13 @@ public:
 
         // добавляет новый обработчик Filter
         PipelineBuilder& FilterBy(Filter::Function filter) {
-                workers.emplace_back(make_unique<Filter>(filter));
+                workers.emplace_back(make_unique<Filter>(move(filter)));
                 return *this;
         }
 
         // добавляет новый обработчик Copier
         PipelineBuilder& CopyTo(string recipient) {
-                workers.emplace_back(make_unique<Copier>(recipient));
+                workers.emplace_back(make_unique<Copier>(move(recipient)));
                 return *this;
         }
 
