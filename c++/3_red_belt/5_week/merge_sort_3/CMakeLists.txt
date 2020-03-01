@@ -1,1 +1,2 @@
 add_executable(merge_sort_3 merge_sort_3.cpp)
+target_link_libraries(merge_sort_3 PRIVATE tests)

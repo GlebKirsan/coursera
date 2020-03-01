@@ -1,1 +1,2 @@
 add_executable(stack_vector stack_vector.cpp)
+target_link_libraries(stack_vector PRIVATE tests)

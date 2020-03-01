@@ -1,6 +1,6 @@
 #include "Common.h"
 #include "Textures.h"
-#include "test_runner.h"
+#include <test_runner.h>
 
 #include <iostream>
 #include <map>

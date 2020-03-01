@@ -1,2 +1,2 @@
-add_executable(comment_server
-        comment_server.cpp)
+add_executable(comment_server comment_server.cpp)
+target_link_libraries(comment_server PRIVATE tests)

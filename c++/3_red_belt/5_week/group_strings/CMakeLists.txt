@@ -1,1 +1,2 @@
 add_executable(group_heavy_strings group_heavy_strings.cpp)
+target_link_libraries(group_heavy_strings PRIVATE tests)

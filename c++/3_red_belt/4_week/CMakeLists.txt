@@ -1,5 +1,3 @@
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${WEEK_PREFIX}/${4_week}")
-
 add_subdirectory(airport_counter)
 add_subdirectory(sportsmens)
 add_subdirectory(stack_vector)

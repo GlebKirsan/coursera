@@ -1,1 +1,2 @@
 add_executable(synchronized synchronized.cpp)
+target_link_libraries(synchronized PRIVATE tests)

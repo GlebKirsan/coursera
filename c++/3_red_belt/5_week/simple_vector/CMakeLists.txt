@@ -1,1 +1,2 @@
-add_executable(simple_vector_copy_assignment simple_vector_copy_assignment.cpp)
+add_executable(simple_vector simple_vector_copy_assignment.cpp)
+target_link_libraries(simple_vector PRIVATE tests)

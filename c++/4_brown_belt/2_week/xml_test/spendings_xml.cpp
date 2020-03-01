@@ -1,5 +1,5 @@
 #include "xml.h"
-#include "test_runner.h"
+#include <test_runner.h>
 
 #include <algorithm>
 #include <iostream>

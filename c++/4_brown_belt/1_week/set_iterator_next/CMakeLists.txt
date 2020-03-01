@@ -1,1 +1,2 @@
 add_executable(set_iterator_next set_iterator_next.cpp)
+target_link_libraries(set_iterator_next PRIVATE tests)

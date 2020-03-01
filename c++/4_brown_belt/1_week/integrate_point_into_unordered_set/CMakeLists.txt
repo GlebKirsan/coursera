@@ -1,1 +1,2 @@
 add_executable(hash_point hash_point.cpp)
+target_link_libraries(hash_point PRIVATE tests)

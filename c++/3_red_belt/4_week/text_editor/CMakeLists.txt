@@ -1,1 +1,2 @@
 add_executable(text_editor text_editor.cpp)
+target_link_libraries(text_editor PRIVATE tests)

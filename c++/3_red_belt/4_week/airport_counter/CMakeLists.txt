@@ -1,1 +1,2 @@
 add_executable(airport_counter airport_counter.cpp)
+target_link_libraries(airport_counter PRIVATE tests)

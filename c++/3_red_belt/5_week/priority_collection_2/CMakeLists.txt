@@ -1,1 +1,2 @@
 add_executable(priority_collection_2 priority_collection_2.cpp)
+target_link_libraries(priority_collection_2 PRIVATE tests)

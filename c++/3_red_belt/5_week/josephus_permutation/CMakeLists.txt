@@ -1,1 +1,2 @@
 add_executable(josephus_permutation josephus_permutation.cpp)
+target_link_libraries(josephus_permutation PRIVATE tests)

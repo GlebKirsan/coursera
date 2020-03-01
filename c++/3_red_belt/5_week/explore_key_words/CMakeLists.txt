@@ -1,1 +1,2 @@
 add_executable(explore_key_words explore_key_words.cpp)
+target_link_libraries(explore_key_words PRIVATE tests)

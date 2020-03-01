@@ -1,1 +1,2 @@
 add_executable(simple_vector_2 simple_vector_2.cpp)
+target_link_libraries(simple_vector_2 PRIVATE tests)

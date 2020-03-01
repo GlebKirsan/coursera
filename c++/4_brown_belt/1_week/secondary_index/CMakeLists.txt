@@ -1,1 +1,2 @@
 add_executable(secondary_index secondary_index.cpp)
+target_link_libraries(secondary_index PRIVATE tests)

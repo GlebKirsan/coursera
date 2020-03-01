@@ -2,8 +2,6 @@
 
 using namespace std;
 
-#pragma once
-
 #include <memory>
 #include <string>
 
