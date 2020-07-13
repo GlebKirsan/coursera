@@ -1,1 +1,6 @@
 add_subdirectory(avg_temp)
+add_subdirectory(blocks_sum)
+add_subdirectory(link_to_the_element)
+add_subdirectory(matrix_sum)
+add_subdirectory(sqr)
+add_subdirectory(task_tracker)

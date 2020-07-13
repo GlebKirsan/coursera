@@ -1,2 +1,2 @@
-add_executable(matrix_sum matrix_sum.cpp)
-target_link_libraries(matrix_sum PRIVATE tests)
+add_executable(matrix_sum2 matrix_sum.cpp)
+target_link_libraries(matrix_sum2 PRIVATE tests)
