@@ -1,5 +1,5 @@
 add_subdirectory(airport_counter)
-add_subdirectory(sportsmens)
+add_subdirectory(sportsmen)
 add_subdirectory(stack_vector)
 add_subdirectory(text_editor)
 add_subdirectory(translator)
