@@ -1,0 +1,8 @@
+add_subdirectory(constructor)
+add_subdirectory(module_sort)
+add_subdirectory(names_and_surnames_1)
+add_subdirectory(names_and_surnames_2)
+add_subdirectory(names_and_surnames_3)
+add_subdirectory(sorted_string)
+add_subdirectory(no_register_sort)
+add_subdirectory(variants_of_init)

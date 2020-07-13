@@ -1,1 +1,1 @@
-add_executable(avg_temp avg_temp.cpp)
+add_executable(avg_temp2 avg_temp.cpp)

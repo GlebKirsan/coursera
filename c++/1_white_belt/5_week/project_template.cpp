@@ -5,8 +5,8 @@
 #include <regex>
 #include <set>
 #include <map>
+
 using namespace std;
-const regex reg = regex(R"(-?\d+--?\d+--?\d+)");
 
 class Date {
 public:
@@ -34,15 +34,15 @@ public:
         return day < rhs.day;
     }
 
-    int GetYear() const {
+    [[nodiscard]] int GetYear() const {
         return year;
     }
 
-    int GetMonth() const {
+    [[nodiscard]] int GetMonth() const {
         return month;
     }
 
-    int GetDay() const {
+    [[nodiscard]] int GetDay() const {
         return day;
     }
 
@@ -52,23 +52,25 @@ private:
     int day;
 };
 
-ostream &operator<<(ostream &ostr, const Date &date) {
-    ostr << setfill('0');
-    return ostr << setw(4) << date.GetYear() << "-" << setw(2) << date.GetMonth() << "-" << setw(2) << date.GetDay();
+ostream &operator<<(ostream &output_stream, const Date &date) {
+    output_stream << setfill('0');
+    return output_stream << setw(4) << date.GetYear() << "-" << setw(2)
+                         << date.GetMonth() << "-" << setw(2) << date.GetDay();
 }
 
 void check(string &input) {
+    static regex reg = regex(R"(-?\d+--?\d+--?\d+)");
     if (!regex_match(input, reg)) {
         throw invalid_argument("Wrong date format: " + input);
     }
 }
 
-istream &operator>>(istream &istr, Date &date) {
+istream &operator>>(istream &input_stream, Date &date) {
     int year;
     int month;
     int day;
     string input;
-    istr >> input;
+    input_stream >> input;
     check(input);
     stringstream inp(input);
     inp >> year;
@@ -77,11 +79,11 @@ istream &operator>>(istream &istr, Date &date) {
     inp.ignore(1);
     inp >> day;
     date = Date(year, month, day);
-    return istr;
+    return input_stream;
 }
 
 Date ParseDate(stringstream &s) {
-    Date date;
+    Date date{};
     s >> date;
     return date;
 }
@@ -146,7 +148,7 @@ int main() {
             cout << "Unknown command: " << operation << "\n";
             break;
         } else {
-            Date date;
+            Date date{};
             try {
                 date = ParseDate(stream);
             } catch (invalid_argument &e) {
