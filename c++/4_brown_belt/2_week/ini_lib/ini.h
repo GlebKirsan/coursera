@@ -8,10 +8,6 @@ namespace Ini {
     using namespace std;
     using Section = unordered_map<string, string>;
 
-    namespace kek {
-        using lol = int;
-    }
-
     class Document {
     public:
         Section& AddSection(string name);

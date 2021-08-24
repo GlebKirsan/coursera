@@ -9,11 +9,11 @@ public:
         virtual ~IBook() = default;
 
         // Возвращает название книги
-        virtual const std::string& GetName() const = 0;
+        [[nodiscard]] virtual const std::string& GetName() const = 0;
 
         // Возвращает текст книги как строку.
         // Размером книги считается размер её текста в байтах.
-        virtual const std::string& GetContent() const = 0;
+        [[nodiscard]] virtual const std::string& GetContent() const = 0;
 };
 
 // Интерфейс, позволяющий распаковывать книги

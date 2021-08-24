@@ -7,10 +7,9 @@ namespace Ini {
     Section& Document::AddSection(string name) {
         string section;
 
-        string::iterator start = name[0] == '[' && name.back() == ']' ?
-                                 next(begin(name)) : begin(name);
-        string::iterator finish = name[0] == '[' && name.back() == ']' ?
-                                  prev(end(name)) : end(name);;
+        bool is_section = name[0] == '[' && name.back() == ']';
+        string::iterator start = is_section ? next(begin(name)) : begin(name);
+        string::iterator finish = is_section ? prev(end(name)) : end(name);
         move(start, finish, back_inserter(section));
 
         return sections[move(section)];

@@ -26,15 +26,15 @@ public:
                 memory_used_by_books_ += content_.size();
         }
 
-        ~Book() {
+        ~Book() override {
                 memory_used_by_books_ -= content_.size();
         }
 
-        const string& GetName() const override {
+        [[nodiscard]] const string& GetName() const override {
                 return name_;
         }
 
-        const string& GetContent() const override {
+        [[nodiscard]] const string& GetContent() const override {
                 return content_;
         }
 
@@ -154,6 +154,7 @@ void TestAsync(const Library& lib) {
 
         vector<future<void>> tasks;
 
+        tasks.reserve(tasks_count);
         for (int task_num = 0; task_num < tasks_count; ++task_num) {
                 tasks.push_back(async([&cache, &lib, task_num] {
                         default_random_engine gen;
